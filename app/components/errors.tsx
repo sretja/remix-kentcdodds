@@ -1,11 +1,21 @@
 import {useMatches} from 'remix'
 import * as React from 'react'
+import type {MdxListItem} from 'types'
 import {images} from '../images'
-import {articles} from '../../storybook/stories/fixtures'
 import {HeroSection} from './sections/hero-section'
 import {BlogSection} from './sections/blog-section'
 
-function ErrorPage({title, subtitle}: {title: string; subtitle: string}) {
+type BlogRecommendations = Array<MdxListItem>
+
+function ErrorPage({
+  title,
+  subtitle,
+  blogRecommendations,
+}: {
+  title: string
+  subtitle: string
+  blogRecommendations: BlogRecommendations
+}) {
   return (
     <main>
       <HeroSection
@@ -13,14 +23,15 @@ function ErrorPage({title, subtitle}: {title: string; subtitle: string}) {
         subtitle={subtitle}
         imageUrl={images.bustedOnewheel()}
         imageAlt={images.bustedOnewheel.alt}
-        arrowUrl="#articles"
-        arrowLabel="But wait, there is more!"
+        // arrowUrl={blogRecommendations.length ? "#articles" : null}
+        // arrowLabel={blogRecommendations.length ? "But wait, there is more!" : null}
+        arrowUrl="yo"
+        arrowLabel={null}
       />
 
-      {/* TODO: remove fixtures, do something smart */}
       <div id="articles" />
       <BlogSection
-        articles={articles}
+        articles={blogRecommendations}
         title="Looking for something to read?"
         description="Have a look at these articles."
       />
@@ -28,7 +39,11 @@ function ErrorPage({title, subtitle}: {title: string; subtitle: string}) {
   )
 }
 
-function FourOhFour() {
+function FourOhFour({
+  blogRecommendations,
+}: {
+  blogRecommendations: BlogRecommendations
+}) {
   const matches = useMatches()
   const last = matches[matches.length - 1]
   const pathname = last?.pathname
@@ -37,11 +52,16 @@ function FourOhFour() {
     <ErrorPage
       title="404 - Oh no, you found a page that's missing stuff."
       subtitle={`"${pathname}" is not a page on kentcdodds.com. So sorry.`}
+      blogRecommendations={blogRecommendations}
     />
   )
 }
 
-function ServerError() {
+function ServerError({
+  blogRecommendations = [],
+}: {
+  blogRecommendations?: BlogRecommendations
+}) {
   const matches = useMatches()
   const last = matches[matches.length - 1]
   const pathname = last?.pathname
@@ -50,6 +70,7 @@ function ServerError() {
     <ErrorPage
       title="500 - Oh no, something did not go that well."
       subtitle={`"${pathname}" is currently not working. So sorry.`}
+      blogRecommendations={blogRecommendations}
     />
   )
 }

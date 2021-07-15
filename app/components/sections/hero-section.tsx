@@ -15,9 +15,9 @@ type HeroSectionProps = {
       imageSize?: 'medium' | 'large' | 'giant'
     }
   | {
-      imageUrl?: never
-      imageAlt?: never
-      imageSize?: never
+      imageUrl?: never | null
+      imageAlt?: never | null
+      imageSize?: never | null
     }
 ) &
   (
@@ -26,8 +26,8 @@ type HeroSectionProps = {
         arrowLabel: string
       }
     | {
-        arrowUrl?: never
-        arrowLabel?: never
+        arrowUrl?: never | null
+        arrowLabel?: never | null
       }
   )
 
