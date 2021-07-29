@@ -2,7 +2,7 @@
   "name": "kentcdodds.com",
   "version": "1.0.0",
   "engines": {
-    "node": "16",
+    "node": "14.x",
     "npm": "7"
   },
   "description": "A remix version of kentcdodds.com",
